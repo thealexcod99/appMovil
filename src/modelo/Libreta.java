@@ -1,14 +1,18 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class Libreta {
 	private int idLibreta;
 	private String nombre;
 	private int idRegistrado;
-	
-	public Libreta(int idLibreta, String nombre, int idRegistrado) {
+	private ArrayList<Contacto> listaContactos;
+
+	public Libreta(int idLibreta, String nombre, int idRegistrado, ArrayList<Contacto> listaContactos) {
 		this.idLibreta = idLibreta;
 		this.nombre = nombre;
 		this.idRegistrado = idRegistrado;
+		this.listaContactos = new ArrayList<>(listaContactos);
 	}
 
 	public String getNombre() {

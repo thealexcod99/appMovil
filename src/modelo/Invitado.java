@@ -1,11 +1,14 @@
 package modelo;
 
-public class Invitado {
+public class Invitado extends Usuario {
 	private int idInvitado;
 	private String fecUltimaConex;
 	
-	public Invitado(int idInvitado, String fecUltimaConex) {
-		this.idInvitado = idInvitado;
+	
+
+	public Invitado(int idInvitado, String nombre, String apellido, String email, String password,
+			String fecUltimaConex) {
+		super(idInvitado, nombre, apellido, email, password);
 		this.fecUltimaConex = fecUltimaConex;
 	}
 

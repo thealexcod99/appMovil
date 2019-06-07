@@ -1,11 +1,12 @@
 package modelo;
 
-public class Administrador {
+public class Administrador extends Usuario {
 	private int idAdministrador;
 	private String fecUltimaConex;
-	
-	public Administrador(int idAdministrador, String fecUltimaConex) {
-		this.idAdministrador = idAdministrador;
+
+	public Administrador(int idAdministrador, String nombre, String apellido, String email, String password,
+		String fecUltimaConex) {
+		super(idAdministrador, nombre, apellido, email, password);
 		this.fecUltimaConex = fecUltimaConex;
 	}
 
