@@ -12,15 +12,13 @@ public class ConexionSQLite {
 
 	private static Connection conexion = null;   //este objeto va a ser la instacia única
 
-	private ConexionSQLite() {}  //constructor privado, no se puede instaciar desde otra clase
-
 	//método para obtener la instancia
-	public static Connection getConexion() throws SQLException, FileNotFoundException, IOException {
+	public static Connection getConexion() {
 		if (conexion == null) {
 			//cargamos el fichero de propiedades
 			Properties properties = new Properties();
 			try {
-				properties.load(new FileReader("config/config.properties"));
+				properties.load(new FileReader("config.properties"));
 				String DRIVER = properties.getProperty("DRIVER");
 				String URL    = properties.getProperty("URL");
 				conexion = DriverManager.getConnection(DRIVER + URL);
@@ -33,13 +31,14 @@ public class ConexionSQLite {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-	}
+			}
 		}
 		return conexion;
 	}
 
 	//método para cerrar la conexión
-	public static void cerrarConexion () throws SQLException {
+	
+	public static void cerrarConexion () {
 		if (conexion != null) {
 			try {
 				conexion.close();
@@ -51,19 +50,10 @@ public class ConexionSQLite {
 	}
 
 	public static void main(String[] args) {
-		try {
-
-			Connection connection1 = ConexionSQLite.getConexion();
-			System.out.println(connection1);
-			Connection connection2 = ConexionSQLite.getConexion();
-			System.out.println(connection2);
-			System.out.println(connection1.equals(connection2));
-			ConexionSQLite.cerrarConexion();
-
-		} catch (SQLException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ConexionSQLite conexion1 = new ConexionSQLite();
+		ConexionSQLite conexion2 = new ConexionSQLite();
+		System.out.println(conexion1.getConexion());
+		System.out.println(conexion2.getConexion());
 	}
 
 

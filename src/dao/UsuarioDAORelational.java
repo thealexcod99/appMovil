@@ -18,6 +18,10 @@ public class UsuarioDAORelational implements UsuarioDAO{
 	private List<Administrador> listaAdministradores = new ArrayList<>();
 	private List<Usuario> listaUsuarios = new ArrayList<>();
 	
+	public UsuarioDAORelational() {
+		rellenarListaRegistrados();
+	}
+
 	@Override
 	public List<Usuario> getUsuarios() {
 		// TODO Auto-generated method stub
@@ -27,7 +31,8 @@ public class UsuarioDAORelational implements UsuarioDAO{
 /* REGISTRADO */
 	
 	private void rellenarListaRegistrados() {
-		Connection conexion = ConexionSQLite.getConexion();
+		ConexionSQLite conexionSQLite = new ConexionSQLite();
+		Connection conexion = conexionSQLite.getConexion();
 		String sql = "SELECT * FROM VISTA_REGISTRADO;";
 		try (Statement statement = conexion.createStatement();){
 			ResultSet rsSet = statement.executeQuery(sql);
@@ -109,6 +114,11 @@ public class UsuarioDAORelational implements UsuarioDAO{
 	public boolean activarDesactivarInvitado(String activado) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public static void main(String[] args) {
+		UsuarioDAORelational usuarioDao = new UsuarioDAORelational();
+		
 	}
 
 }
