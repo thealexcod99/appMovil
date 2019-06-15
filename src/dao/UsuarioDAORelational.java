@@ -17,15 +17,39 @@ public class UsuarioDAORelational implements UsuarioDAO{
 	private List<Registrado> listaRegistrados = new ArrayList<>();
 	private List<Administrador> listaAdministradores = new ArrayList<>();
 	private List<Usuario> listaUsuarios = new ArrayList<>();
+	private Invitado invitado;
 	
 	public UsuarioDAORelational() {
 		rellenarListaRegistrados();
+		rellenarListaAdministrador();
+		rellenarListaUsuarios();
+		rellenarInvitado();
+	}
+	
+	private void rellenarListaUsuarios() {
+		ConexionSQLite conexionSQLite = new ConexionSQLite();
+		Connection conexion = conexionSQLite.getConexion();
+		String sql = "SELECT * FROM USUARIO;";
+		try (Statement statement = conexion.createStatement();){
+			ResultSet rsSet = statement.executeQuery(sql);
+			while(rsSet.next()) {
+				int idRegistrado = rsSet.getInt("ID_USUARIO");
+				String nombre = rsSet.getString("NOMBRE");
+				String apellido  = rsSet.getString("APELLIDO");
+				String email     = rsSet.getString("EMAIL");
+				String password  = rsSet.getString("PASSWORD");
+				listaUsuarios.add(
+						new Usuario(idRegistrado, nombre, apellido, email, password));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public List<Usuario> getUsuarios() {
-		// TODO Auto-generated method stub
-		return null;
+		return listaUsuarios;
 	}
 	
 /* REGISTRADO */
@@ -50,11 +74,16 @@ public class UsuarioDAORelational implements UsuarioDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-}
+	}
+	
+	@Override
+	public List<Registrado> getRegistrados() {
+		return listaRegistrados;
+	}
 	
 	@Override
 	public boolean crearRegistrado(Registrado registrado) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
@@ -77,7 +106,34 @@ public class UsuarioDAORelational implements UsuarioDAO{
 	}
 	
 /* ADMINISTRADOR */	
+	
+	private void rellenarListaAdministrador() {
+		ConexionSQLite conexionSQLite = new ConexionSQLite();
+		Connection conexion = conexionSQLite.getConexion();
+		String sql = "SELECT * FROM VISTA_ADMINISTRADOR;";
+		try (Statement statement = conexion.createStatement();){
+			ResultSet rsSet = statement.executeQuery(sql);
+			while(rsSet.next()) {
+				int idAdministrador = rsSet.getInt("ID_ADMINISTRADOR");
+				String nombre = rsSet.getString("NOMBRE");
+				String apellido  = rsSet.getString("APELLIDO");
+				String email     = rsSet.getString("EMAIL");
+				String password  = rsSet.getString("PASSWORD");
+				String fecUltimaConex    = rsSet.getString("FEC_ULTIMA_CONEX");
+				listaAdministradores.add(
+						new Administrador(idAdministrador, nombre, apellido, email, password, fecUltimaConex));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
+	@Override
+	public List<Administrador> getAdministradores() {
+		return listaAdministradores;
+	}
+	
 	@Override
 	public boolean crearAdministrador(Administrador registrado) {
 		// TODO Auto-generated method stub
@@ -104,10 +160,28 @@ public class UsuarioDAORelational implements UsuarioDAO{
 
 /* INVITADO */
 	
+	private void rellenarInvitado() {
+		ConexionSQLite conexionSQLite = new ConexionSQLite();
+		Connection conexion = conexionSQLite.getConexion();
+		String sql = "SELECT * FROM VISTA_INVITADO;";
+		try (Statement statement = conexion.createStatement();){
+			ResultSet rsSet = statement.executeQuery(sql);
+			int idInvitado = rsSet.getInt("ID_INVITADO");
+			String nombre = rsSet.getString("NOMBRE");
+			String apellido  = rsSet.getString("APELLIDO");
+			String email     = rsSet.getString("EMAIL");
+			String password  = rsSet.getString("PASSWORD");
+			String fecUltimaConex    = rsSet.getString("FEC_ULTIMA_CONEX");
+			invitado = new Invitado(idInvitado, nombre, apellido, email, password, fecUltimaConex);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
-	public Invitado getInvitadoById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Invitado getInvitado() {
+		return invitado;
 	}
 
 	@Override
