@@ -100,7 +100,7 @@ public class UsuarioDAORelational implements UsuarioDAO{
 //	}
 
 	@Override
-	public boolean eliminarRegistrado(Registrado registrado) {
+	public boolean eliminarRegistradoById(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}

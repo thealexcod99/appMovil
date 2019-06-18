@@ -15,7 +15,7 @@ public interface UsuarioDAO {
 	boolean crearRegistrado(Registrado registrado);
 	Registrado getRegistradoById(int id);
 //	boolean actualizarRegistrado(Registrado registrado);
-	boolean eliminarRegistrado(Registrado registrado);
+	boolean eliminarRegistradoById(int id);
 	/* Administrador */
 	List<Administrador> getAdministradores();
 	boolean crearAdministrador(Administrador registrado);
